@@ -28,6 +28,12 @@ const userSchema = new mongoose.Schema({
     max: 100,
     required: [true, 'Age is required'],
   },
+  money: {
+    type: Number,
+    min: 0,
+    required: [false],
+    default: 0,
+  }
 },
 {
     timestamps: { createdAt: 'createdDate: ', updatedAt: 'modifyDate: ' },

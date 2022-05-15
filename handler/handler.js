@@ -39,7 +39,6 @@ const postAttempt = async (req, res, next) => {
 const getUsers = async (req, res, next) => {
   try {
     const users = await userService.getAllUsers();
-
     res.status(200).json({ success: true, message: 'success', data: users });
     console.log('users gotten');
   } catch (err) {
@@ -100,6 +99,37 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const loginUser = async (req, res, next) => {
+  const userCreds = req.body;
+  try{
+    const verify = await userService.loginUser(userCreds);
+    console.log(verify);
+    res.status(200).json({ success: true, message: 'success', data: verify});
+    console.log('user logged in');
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(400).json({ success: false, message: err.message, data: [] });
+    } else {
+      next(err);
+    }
+  }
+};
+
+const updateMoney = async (req, res, next) => {
+  const userMoney = req.body;
+  try{
+    const money = await userService.updateMoney(userMoney);
+    res.status(200).json({ success: true, message: 'success', data: money});
+    console.log('user logged in');
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(400).json({ success: false, message: err.message, data: [] });
+    } else {
+      next(err);
+    }
+  }
+}
+
 
 // eslint-disable-next-line object-curly-newline
 module.exports = {
@@ -110,4 +140,6 @@ module.exports = {
   getById,
   updateUser,
   deleteUser,
+  loginUser,
+  updateMoney,
 };

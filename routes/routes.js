@@ -12,6 +12,8 @@ const userRoutes = () => {
   router.post('/attempt', handler.postAttempt);
   router.put('/:userId', handler.updateUser);
   router.delete('/:userId', handler.deleteUser);
+  router.post('/login', handler.loginUser);
+  router.post('/money', handler.updateMoney);
 
   return router;
 };

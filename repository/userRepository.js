@@ -46,6 +46,18 @@ module.exports = class UserRepository {
   }
 
   /**
+   * 
+   * @param {String} uName username
+   * @returns {Object} user data
+   */
+  async getByUname(uName){
+    const isExist = await this.model.exists({ username: uName });
+    if (!isExist) throw new Error ('User Not Found!');
+    const user = await this.model.findOne({ username:uName });
+    return user;
+  }
+
+  /**
    *
    * @param {String} id user id
    * @param {Object} object user object data
@@ -71,5 +83,16 @@ module.exports = class UserRepository {
     const isExist = await this.model.exists({ _id: userId });
     if (!isExist) throw new Error('User Not Found!');
     return this.model.findByIdAndDelete(userId);
+  }
+
+  /**
+   * 
+   * @param {String} uName username
+   * @param {Number} cur_money money
+   * @returns {Object} userdata
+   */
+  async updateMoney(uName, cur_money){
+    const query = { username: uName };
+    return this.model.findOneAndUpdate(query, { money:cur_money });
   }
 } ;

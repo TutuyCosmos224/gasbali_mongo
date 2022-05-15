@@ -116,11 +116,34 @@ const attemptRepo = new AttemptRepository(attemptModel.attemptSchema);
    */
   const deleteUser = async (id) => {
     try {
-      return await Use.deleteById(id);
+      return await userRepo.deleteById(id);
     } catch (err) {
       throw new Error(err.message);
     }
   };
+
+  /**
+   * 
+   * @param {Object} creds user login attempt
+   * @returns {Boolean}  verify
+   */
+  const loginUser = async (creds) =>{
+    const user = await userRepo.getByUname(creds.username);
+    return utils.verifyPassword(creds.password, user.password);
+  }
+
+  /**
+   * 
+   * @param {String} username username
+   * @param {Number} money money
+   * @returns {Number} money change to
+   */
+  const updateMoney = async (userMoney) =>{
+    const user = await userRepo.getByUname(userMoney.username);
+    const money_status = user.money;
+    const new_money = userMoney.money + money_status;
+    return await userRepo.updateMoney(userMoney.username, new_money);
+  }
   
   
   // eslint-disable-next-line object-curly-newline
@@ -131,4 +154,6 @@ const attemptRepo = new AttemptRepository(attemptModel.attemptSchema);
     getUserById,
     updateUser,
     deleteUser,
+    loginUser,
+    updateMoney
   };
