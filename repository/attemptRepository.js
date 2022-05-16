@@ -40,7 +40,17 @@ module.exports = class AttemptRepository {
     const user = await this.model.findById(attemptId);
     return user;
   }
-
+  /**
+   * 
+   * @param {String} uName username
+   * @returns {Object} user data
+   */
+ async getByUname(uName){
+  const isExist = await this.model.exists({ username: uName });
+  if (!isExist) throw new Error ('User Not Found!');
+  const user = await this.model.find({ username:uName });
+  return user;
+}
   /**
    *
    * @param {String} id user id

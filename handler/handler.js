@@ -130,6 +130,61 @@ const updateMoney = async (req, res, next) => {
   }
 }
 
+const getByUname = async (req, res, next) => {
+  const { username } = req.params;
+  try{
+    const data = await userService.getUserByUname(username);
+    res.status(200).json({ success: true, message: 'success', data: data});
+  } catch (err){
+    if (err instanceof Error) {
+      res.status(400).json({ success: false, message: err.message, data: [] });
+    } else {
+      next(err);
+    }
+  }
+}
+
+const signIn = async (req, res, next) => {
+  const { username } = req.params;
+  try{
+    const data = await userService.signInUser(username);
+    res.status(200).json({ success: true, message: 'success', data: data});
+  } catch (err){
+    if (err instanceof Error) {
+      res.status(400).json({ success: false, message: err.message, data: [] });
+    } else {
+      next(err);
+    }
+  }
+}
+
+const getAttempt = async (req, res, next) => {
+  const { username } = req.params;
+  try{
+    const data = await userService.getAttempt(username);
+    res.status(200).json({ success: true, message: 'success', data: data});
+  } catch (err){
+    if (err instanceof Error) {
+      res.status(400).json({ success: false, message: err.message, data: [] });
+    } else {
+      next(err);
+    }
+  }
+}
+
+const getAllAttempt = async (req, res, next) => {
+  try{
+    const data = await userService.getAllAttempts();
+    res.status(200).json({ success: true, message: 'success', data: data});
+  } catch (err){
+    if (err instanceof Error) {
+      res.status(400).json({ success: false, message: err.message, data: [] });
+    } else {
+      next(err);
+    }
+  }
+}
+
 
 // eslint-disable-next-line object-curly-newline
 module.exports = {
@@ -142,4 +197,8 @@ module.exports = {
   deleteUser,
   loginUser,
   updateMoney,
+  getByUname,
+  signIn,
+  getAttempt,
+  getAllAttempt,
 };

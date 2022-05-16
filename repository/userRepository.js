@@ -95,4 +95,24 @@ module.exports = class UserRepository {
     const query = { username: uName };
     return this.model.findOneAndUpdate(query, { money:cur_money });
   }
+
+  /**
+   * 
+   * @param {String} uName username
+   * @return {Object} userdata
+   */
+  async signIn (uName){
+    const isExist = await this.model.exists({ username: uName });
+    if (!isExist) {
+      const object = {
+        name : uName,
+		    username : uName,
+		    // password : hashedPassword,
+      }
+      return await this.model.create(object);
+    } else {
+      const user = await this.model.findOne({ username:uName });
+      return user;
+    }
+  }
 } ;

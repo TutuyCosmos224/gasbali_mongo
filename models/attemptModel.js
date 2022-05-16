@@ -11,7 +11,7 @@ const attemptSchema = new mongoose.Schema({
     required: [true, 'Username is required'],
     minlength: 3,
     maxlength: 12,
-    unique: true,
+    unique: false,
   },
   game: {
     type: String,
@@ -24,7 +24,7 @@ const attemptSchema = new mongoose.Schema({
 },
 {
     timestamps: { createdAt: 'createdDate: ', updatedAt: 'modifyDate: ' },
-    collection: 'attemps',
+    collection: 'attempts',
 },
 )
 

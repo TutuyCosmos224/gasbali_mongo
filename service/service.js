@@ -80,7 +80,26 @@ const attemptRepo = new AttemptRepository(attemptModel.attemptSchema);
       throw new Error(err.message);
     }
   };
+ /**
+   *
+   * @param {String} uName username
+   * @returns {Object} user data
+   */
+  const getAttempt = async (uName) =>{
+    try{
+      return await attemptRepo.getByUname(uName);
+    } catch (err){
+      throw new Error (err.message);
+    }
+  }
   
+  const getAllAttempts = async() => {
+    try {
+      return attemptRepo.getAll();
+    } catch (err){
+      throw new Error (err.message);
+    }
+  }
   /**
    *
    * @param {String} id user id
@@ -131,11 +150,23 @@ const attemptRepo = new AttemptRepository(attemptModel.attemptSchema);
     const user = await userRepo.getByUname(creds.username);
     return utils.verifyPassword(creds.password, user.password);
   }
+  
+  /**
+   * 
+   * @param {String} uName username
+   * @returns {Object}  
+   */
+  const signInUser = async (uName) => {
+    try{
+      return await userRepo.signIn(uName);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
 
   /**
    * 
-   * @param {String} username username
-   * @param {Number} money money
+   * @param {Object} userMoney username
    * @returns {Number} money change to
    */
   const updateMoney = async (userMoney) =>{
@@ -145,6 +176,19 @@ const attemptRepo = new AttemptRepository(attemptModel.attemptSchema);
     return await userRepo.updateMoney(userMoney.username, new_money);
   }
   
+  /**
+   * 
+   * @param {String} uName username
+   * @returns {Number} money change to
+   */
+  const getUserByUname = async (uName) =>{
+    try{
+      console.log(uName);
+      return userRepo.getByUname(uName);
+    } catch (err){
+      throw new Error (err.message);
+    }
+  }
   
   // eslint-disable-next-line object-curly-newline
   module.exports = {
@@ -155,5 +199,9 @@ const attemptRepo = new AttemptRepository(attemptModel.attemptSchema);
     updateUser,
     deleteUser,
     loginUser,
-    updateMoney
+    updateMoney,
+    getUserByUname,
+    signInUser,
+    getAttempt,
+    getAllAttempts,
   };

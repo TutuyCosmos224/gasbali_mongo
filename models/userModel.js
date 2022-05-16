@@ -13,20 +13,20 @@ const userSchema = new mongoose.Schema({
     maxlength: 12,
     unique: true,
   },
-  password: {
-    type: String,
-    required: [true, 'Password is required'],
-  },
+  // password: {
+  //   type: String,
+  //   required: [true, 'Password is required'],
+  // },
   gender: {
     type: String,
     enum : ['male','female'],
-    required: [true, 'Gender is required'],
+    required: [false],
   },
   age: {
     type: Number,
     min: 0,
     max: 100,
-    required: [true, 'Age is required'],
+    required: [false],
   },
   money: {
     type: Number,

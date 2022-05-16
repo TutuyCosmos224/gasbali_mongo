@@ -14,6 +14,10 @@ const userRoutes = () => {
   router.delete('/:userId', handler.deleteUser);
   router.post('/login', handler.loginUser);
   router.post('/money', handler.updateMoney);
+  router.get('/uName/:username', handler.getByUname);
+  router.post('/signin/:username', handler.signIn);
+  router.get('/attempt/:username', handler.getAttempt);
+  router.get('/all/attempt', handler.getAllAttempt);
 
   return router;
 };
